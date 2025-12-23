@@ -3,7 +3,6 @@ package models;
 public class Player {
     private final String name;
     private int score;
-    private String displayScoreName;
 
     public Player(String name) {
         this.name = name;
