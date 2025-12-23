@@ -1,3 +1,4 @@
+import models.Player;
 
 public class TennisGame1 implements TennisGame {
 
@@ -49,18 +50,4 @@ public class TennisGame1 implements TennisGame {
         }
         return score;
     }
-}
-
-class Player {
-    private final String name;
-    private int score;
-
-    Player(String name) {
-        this.name = name;
-        this.score = 0;
-    }
-
-    public int getScore() {return score;}
-    public void incrementScore() {this.score+=1;}
-    public String getName() {return name;}
 }
