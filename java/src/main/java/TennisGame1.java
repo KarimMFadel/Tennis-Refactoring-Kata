@@ -24,16 +24,15 @@ public class TennisGame1 implements TennisGame {
         int m_score2 = player2.getScore();
 
         if (m_score1 == m_score2) {
-            return getScoreInEqualizeState(m_score1);
+            return getScoreWhenTied(m_score1);
         } else if (m_score1 >= 4 || m_score2 >= 4) {
             return getScoreInWinStateAndAdvantageState(m_score1, m_score2);
         }
-        return getScoreByCombineBothPlayerScores(player1.getDisplayScoreName(),
-                player2.getDisplayScoreName());
+        return combinePlayerScores(player1.getDisplayScoreName(), player2.getDisplayScoreName());
 
     }
 
-    private String getScoreInEqualizeState(int m_score) {
+    private String getScoreWhenTied(int m_score) {
         return switch (m_score) {
             case 0 -> "Love-All";
             case 1 -> "Fifteen-All";
@@ -52,7 +51,7 @@ public class TennisGame1 implements TennisGame {
         return score;
     }
 
-    private String getScoreByCombineBothPlayerScores(String player1ScoreName, String player2ScoreName) {
+    private String combinePlayerScores(String player1ScoreName, String player2ScoreName) {
         return player1ScoreName + "-" + player2ScoreName;
     }
 }
