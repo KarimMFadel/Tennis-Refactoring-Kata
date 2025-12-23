@@ -3,6 +3,7 @@ package models;
 public class Player {
     private final String name;
     private int score;
+    private String displayScoreName;
 
     public Player(String name) {
         this.name = name;
@@ -12,4 +13,8 @@ public class Player {
     public int getScore() {return score;}
     public void incrementScore() {this.score+=1;}
     public String getName() {return name;}
+
+    public String getDisplayScoreName() {
+        return TennisScore.fromValue(this.score);
+    }
 }
