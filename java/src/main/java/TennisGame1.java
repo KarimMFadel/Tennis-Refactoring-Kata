@@ -22,21 +22,12 @@ public class TennisGame1 implements TennisGame {
         String score = "";
         int tempScore = 0;
         if (m_score1 == m_score2) {
-            switch (m_score1) {
-                case 0:
-                    score = "Love-All";
-                    break;
-                case 1:
-                    score = "Fifteen-All";
-                    break;
-                case 2:
-                    score = "Thirty-All";
-                    break;
-                default:
-                    score = "Deuce";
-                    break;
-
-            }
+            score = switch (m_score1) {
+                case 0 -> "Love-All";
+                case 1 -> "Fifteen-All";
+                case 2 -> "Thirty-All";
+                default -> "Deuce";
+            };
         } else if (m_score1 >= 4 || m_score2 >= 4) {
             int minusResult = m_score1 - m_score2;
             if (minusResult == 1) score = "Advantage player1";
@@ -50,20 +41,12 @@ public class TennisGame1 implements TennisGame {
                     score += "-";
                     tempScore = m_score2;
                 }
-                switch (tempScore) {
-                    case 0:
-                        score += "Love";
-                        break;
-                    case 1:
-                        score += "Fifteen";
-                        break;
-                    case 2:
-                        score += "Thirty";
-                        break;
-                    case 3:
-                        score += "Forty";
-                        break;
-                }
+                score += switch (tempScore) {
+                    case 0 -> "Love";
+                    case 1 -> "Fifteen";
+                    case 2 -> "Thirty";
+                    default -> "Forty"; // 3
+                };
             }
         }
         return score;
