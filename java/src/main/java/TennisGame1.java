@@ -18,25 +18,37 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        String score = "";
         if (player1.getScore() == player2.getScore()) {
-            score = switch (player1.getScore()) {
-                case 0 -> "Love-All";
-                case 1 -> "Fifteen-All";
-                case 2 -> "Thirty-All";
-                default -> "Deuce";
-            };
+            return getScoreInEqualizeState();
         } else if (player1.getScore() >= 4 || player2.getScore() >= 4) {
-            int minusResult = player1.getScore() - player2.getScore();
-            if (minusResult == 1) score = "Advantage player1";
-            else if (minusResult == -1) score = "Advantage player2";
-            else if (minusResult >= 2) score = "Win for player1";
-            else score = "Win for player2";
-        } else {
-            score = player1.getDisplayScoreName()
-                    + "-"
-                    + player2.getDisplayScoreName();
+            return getScoreInWinStateAndAdvantageState();
         }
+        return getScoreByCombineBothPlayerScores();
+
+    }
+
+    private String getScoreInEqualizeState() {
+        String score;
+        score = switch (player1.getScore()) {
+            case 0 -> "Love-All";
+            case 1 -> "Fifteen-All";
+            case 2 -> "Thirty-All";
+            default -> "Deuce";
+        };
         return score;
+    }
+
+    private String getScoreInWinStateAndAdvantageState() {
+        String score;
+        int minusResult = player1.getScore() - player2.getScore();
+        if (minusResult == 1) score = "Advantage player1";
+        else if (minusResult == -1) score = "Advantage player2";
+        else if (minusResult >= 2) score = "Win for player1";
+        else score = "Win for player2";
+        return score;
+    }
+
+    private String getScoreByCombineBothPlayerScores() {
+        return player1.getDisplayScoreName() + "-" + player2.getDisplayScoreName();
     }
 }
