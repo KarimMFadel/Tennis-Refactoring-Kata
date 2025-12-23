@@ -1,5 +1,7 @@
 import models.Player;
 
+import java.util.Objects;
+
 public class TennisGame1 implements TennisGame {
 
     private final Player player1;
@@ -11,7 +13,7 @@ public class TennisGame1 implements TennisGame {
     }
 
     public void wonPoint(String playerName) {
-        if (playerName == player1.getName())
+        if (Objects.equals(playerName, player1.getName()))
             player1.incrementScore();
         else
             player2.incrementScore();
