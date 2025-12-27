@@ -14,6 +14,13 @@ public class TennisGame2 implements TennisGame
         this.player2Name = player2Name;
     }
 
+    public void wonPoint(String player) {
+        if (player == "player1")
+            P1Score();
+        else
+            P2Score();
+    }
+
     public String getScore(){
         String score = "";
         if (P1point == P2point && P1point < 4)
@@ -106,12 +113,5 @@ public class TennisGame2 implements TennisGame
     
     public void P2Score(){
         P2point++;
-    }
-
-    public void wonPoint(String player) {
-        if (player == "player1")
-            P1Score();
-        else
-            P2Score();
     }
 }
