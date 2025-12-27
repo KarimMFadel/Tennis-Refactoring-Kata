@@ -34,17 +34,15 @@ public class TennisGame2 implements TennisGame
     }
 
     private void checkTieInMatch(AtomicReference<String> score) {
-        if (P1point == P2point && P1point < 4)
+        if (P1point == P2point)
         {
-            if (P1point==0)
-                score.set("Love-All");
-            if (P1point==1)
-                score.set("Fifteen-All");
-            if (P1point==2)
-                score.set("Thirty-All");
+            switch (P1point) {
+                case 0 -> score.set("Love-All");
+                case 1 -> score.set("Fifteen-All");
+                case 2 -> score.set("Thirty-All");
+                default -> score.set("Deuce");
+            }
         }
-        if (P1point==P2point && P1point>=3)
-            score.set("Deuce");
     }
 
     private void checkMatchInProgress(AtomicReference<String> score) {
