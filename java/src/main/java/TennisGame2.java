@@ -107,11 +107,11 @@ public class TennisGame2 implements TennisGame
         return score;
     }
     
-    public void P1Score(){
+    private void P1Score(){
         P1point++;
     }
     
-    public void P2Score(){
+    private void P2Score(){
         P2point++;
     }
 }
