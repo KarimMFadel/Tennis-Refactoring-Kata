@@ -53,13 +53,11 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String checkWinnerInMatch(int P1point, int P2point) {
-        int diffScore = (P1point - P2point);
-        if (diffScore >= 2) {
-            return WIN_PREFiX + "player1";
-        } else if ((-1 * diffScore) >= 2) {
-            return WIN_PREFiX + "player2";
-        }
-        return null;
+        int diffScore = Math.abs(P1point - P2point);
+        if (diffScore < 2) // Advantage case
+            return null;
+
+        return (P1point - P2point) > 0? WIN_PREFiX + "player1" : WIN_PREFiX + "player2";
     }
 
     private String checkAdvantageInMatch(int P1point, int P2point) {
