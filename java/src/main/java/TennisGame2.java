@@ -1,4 +1,5 @@
 import models.Player;
+import models.TennisScore;
 
 import java.util.Objects;
 
@@ -45,21 +46,8 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String checkMatchInProgress(int P1point, int P2point) {
-        String P1res = "", P2res = "";
         if (P2point < 4 && P1point < 4 && P1point != P2point) {
-            P1res = switch (P1point) {
-                case 0 -> "Love";
-                case 1 -> "Fifteen";
-                case 2 -> "Thirty";
-                default -> "Forty";
-            };
-            P2res = switch (P2point) {
-                case 0 -> "Love";
-                case 1 -> "Fifteen";
-                case 2 -> "Thirty";
-                default -> "Forty";
-            };
-            return P1res + "-" + P2res;
+            return TennisScore.fromValue(P1point) + "-" + TennisScore.fromValue(P2point);
         }
         return null;
     }
