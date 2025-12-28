@@ -4,6 +4,8 @@ import models.TennisScore;
 import java.util.Objects;
 
 public class TennisGame2 implements TennisGame {
+    private static final int DEUCE_THRESHOLD = 3;
+    private static final String DEUCE = "Deuce";
     private final Player player1;
     private final Player player2;
 
@@ -22,25 +24,20 @@ public class TennisGame2 implements TennisGame {
     public String getScore() {
         int P1point = player1.getScore();
         int P2point = player2.getScore();
-        String score;
 
-        score = checkTieInMatch(P1point, P2point);
+        String score = checkTieInMatch(P1point, P2point);
         if(score == null) score = checkMatchInProgress(P1point, P2point);
         if(score == null) score = checkWinnerInMatch(P1point, P2point);
         if(score == null) score = checkAdvantageInMatch(P1point, P2point);
-
 
         return score;
     }
 
     private String checkTieInMatch(int P1point, int P2point) {
         if (P1point == P2point) {
-            return switch (P1point) {
-                case 0 -> "Love-All";
-                case 1 -> "Fifteen-All";
-                case 2 -> "Thirty-All";
-                default -> "Deuce";
-            };
+            if (P1point >= DEUCE_THRESHOLD)
+                return DEUCE;
+            return TennisScore.fromValue(P1point) + "-All";
         }
         return null;
     }
