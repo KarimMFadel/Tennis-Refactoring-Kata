@@ -1,26 +1,26 @@
+import models.Player;
+
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class TennisGame2 implements TennisGame {
-    public int P1point = 0;
-    public int P2point = 0;
-
-    private String player1Name;
-    private String player2Name;
+    private final Player player1;
+    private final Player player2;
 
     public TennisGame2(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
+        this.player1 = new Player(player1Name);
+        this.player2 = new Player(player2Name);
     }
 
     public void wonPoint(String player) {
-        if (Objects.equals(player, "player1"))
-            P1Score();
+        if (Objects.equals(player, player1.getName()))
+            player1.incrementScore();
         else
-            P2Score();
+            player2.incrementScore();
     }
 
     public String getScore() {
+        int P1point = player1.getScore();
+        int P2point = player2.getScore();
         String score;
 
         score = checkTieInMatch(P1point, P2point);
@@ -80,13 +80,5 @@ public class TennisGame2 implements TennisGame {
             return "Advantage player2";
         }
         return null;
-    }
-
-    private void P1Score() {
-        P1point++;
-    }
-
-    private void P2Score() {
-        P2point++;
     }
 }
