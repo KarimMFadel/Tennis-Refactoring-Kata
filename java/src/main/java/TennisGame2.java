@@ -5,7 +5,10 @@ import java.util.Objects;
 
 public class TennisGame2 implements TennisGame {
     private static final int DEUCE_THRESHOLD = 3;
+    private static final int WIN_THRESHOLD = 4;
     private static final String DEUCE = "Deuce";
+    private static final String WIN_PREFiX = "Win for ";
+    private static final String ADVANTAGE_PREFiX = "Advantage ";
     private final Player player1;
     private final Player player2;
 
@@ -43,27 +46,24 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String checkMatchInProgress(int P1point, int P2point) {
-        if (P2point < 4 && P1point < 4 && P1point != P2point) {
+        if (P2point < WIN_THRESHOLD && P1point < WIN_THRESHOLD && P1point != P2point) {
             return TennisScore.fromValue(P1point) + "-" + TennisScore.fromValue(P2point);
         }
         return null;
     }
 
     private String checkWinnerInMatch(int P1point, int P2point) {
-        if (P1point >= 4 && P2point >= 0 && (P1point - P2point) >= 2) {
-            return "Win for player1";
-        } else if (P2point >= 4 && P1point >= 0 && (P2point - P1point) >= 2) {
-            return "Win for player2";
+        int diffScore = (P1point - P2point);
+        if (diffScore >= 2) {
+            return WIN_PREFiX + "player1";
+        } else if ((-1 * diffScore) >= 2) {
+            return WIN_PREFiX + "player2";
         }
         return null;
     }
 
     private String checkAdvantageInMatch(int P1point, int P2point) {
-        if (P1point > P2point && P2point >= 3) {
-            return "Advantage player1";
-        } else if (P2point > P1point && P1point >= 3) {
-            return "Advantage player2";
-        }
-        return null;
+        return (P1point > P2point) ?
+                ADVANTAGE_PREFiX + "player1" : ADVANTAGE_PREFiX + "player2";
     }
 }
