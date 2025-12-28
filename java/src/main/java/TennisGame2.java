@@ -28,35 +28,29 @@ public class TennisGame2 implements TennisGame {
         int P1point = player1.getScore();
         int P2point = player2.getScore();
 
-        String score = checkTieInMatch(P1point, P2point);
-        if(score == null) score = checkMatchInProgress(P1point, P2point);
-        if(score == null) score = checkWinnerInMatch(P1point, P2point);
-        if(score == null) score = checkAdvantageInMatch(P1point, P2point);
+        if (P1point == P2point) {
+            return checkTieInMatch(P1point);
+        }
+        if (P2point < WIN_THRESHOLD && P1point < WIN_THRESHOLD) {
+            return checkMatchInProgress(P1point, P2point);
+        }
+        if (Math.abs(P1point - P2point) >= 2)
+            return checkWinnerInMatch(P1point, P2point);
 
-        return score;
+        return checkAdvantageInMatch(P1point, P2point);
     }
 
-    private String checkTieInMatch(int P1point, int P2point) {
-        if (P1point == P2point) {
-            if (P1point >= DEUCE_THRESHOLD)
-                return DEUCE;
-            return TennisScore.fromValue(P1point) + "-All";
-        }
-        return null;
+    private String checkTieInMatch(int P1point) {
+        if (P1point >= DEUCE_THRESHOLD)
+            return DEUCE;
+        return TennisScore.fromValue(P1point) + "-All";
     }
 
     private String checkMatchInProgress(int P1point, int P2point) {
-        if (P2point < WIN_THRESHOLD && P1point < WIN_THRESHOLD) {
-            return TennisScore.fromValue(P1point) + "-" + TennisScore.fromValue(P2point);
-        }
-        return null;
+        return TennisScore.fromValue(P1point) + "-" + TennisScore.fromValue(P2point);
     }
 
     private String checkWinnerInMatch(int P1point, int P2point) {
-        int diffScore = Math.abs(P1point - P2point);
-        if (diffScore < 2) // Advantage case
-            return null;
-
         return (P1point - P2point) > 0? WIN_PREFiX + "player1" : WIN_PREFiX + "player2";
     }
 
