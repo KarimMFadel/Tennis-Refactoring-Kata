@@ -1,11 +1,10 @@
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class TennisGame2 implements TennisGame
-{
+public class TennisGame2 implements TennisGame {
     public int P1point = 0;
     public int P2point = 0;
-    
+
     public String P1res = "";
     public String P2res = "";
     private String player1Name;
@@ -23,12 +22,12 @@ public class TennisGame2 implements TennisGame
             P2Score();
     }
 
-    public String getScore(){
+    public String getScore() {
         AtomicReference<String> score = new AtomicReference<>("");
 
         checkTieInMatch(score);
         checkMatchInProgress(score);
-        if(!checkWinnerInMatch(score)) {
+        if (!checkWinnerInMatch(score)) {
             checkAdvantageInMatch(score);
         }
 
@@ -36,8 +35,7 @@ public class TennisGame2 implements TennisGame
     }
 
     private void checkTieInMatch(AtomicReference<String> score) {
-        if (P1point == P2point)
-        {
+        if (P1point == P2point) {
             switch (P1point) {
                 case 0 -> score.set("Love-All");
                 case 1 -> score.set("Fifteen-All");
@@ -48,8 +46,7 @@ public class TennisGame2 implements TennisGame
     }
 
     private void checkMatchInProgress(AtomicReference<String> score) {
-        if (P2point < 4 && P1point < 4 && P1point != P2point)
-        {
+        if (P2point < 4 && P1point < 4 && P1point != P2point) {
             P1res = switch (P1point) {
                 case 0 -> "Love";
                 case 1 -> "Fifteen";
@@ -67,13 +64,10 @@ public class TennisGame2 implements TennisGame
     }
 
     private boolean checkWinnerInMatch(AtomicReference<String> score) {
-        if (P1point>=4 && P2point>=0 && (P1point-P2point)>=2)
-        {
+        if (P1point >= 4 && P2point >= 0 && (P1point - P2point) >= 2) {
             score.set("Win for player1");
             return true;
-        }
-        else if (P2point>=4 && P1point>=0 && (P2point-P1point)>=2)
-        {
+        } else if (P2point >= 4 && P1point >= 0 && (P2point - P1point) >= 2) {
             score.set("Win for player2");
             return true;
         }
@@ -81,22 +75,18 @@ public class TennisGame2 implements TennisGame
     }
 
     private void checkAdvantageInMatch(AtomicReference<String> score) {
-        if (P1point > P2point && P2point >= 3)
-        {
+        if (P1point > P2point && P2point >= 3) {
             score.set("Advantage player1");
-        }
-
-        else if (P2point > P1point && P1point >= 3)
-        {
+        } else if (P2point > P1point && P1point >= 3) {
             score.set("Advantage player2");
         }
     }
 
-    private void P1Score(){
+    private void P1Score() {
         P1point++;
     }
-    
-    private void P2Score(){
+
+    private void P2Score() {
         P2point++;
     }
 }
