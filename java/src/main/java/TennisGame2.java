@@ -5,8 +5,6 @@ public class TennisGame2 implements TennisGame {
     public int P1point = 0;
     public int P2point = 0;
 
-    public String P1res = "";
-    public String P2res = "";
     private String player1Name;
     private String player2Name;
 
@@ -47,6 +45,7 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String checkMatchInProgress(int P1point, int P2point) {
+        String P1res = "", P2res = "";
         if (P2point < 4 && P1point < 4 && P1point != P2point) {
             P1res = switch (P1point) {
                 case 0 -> "Love";
