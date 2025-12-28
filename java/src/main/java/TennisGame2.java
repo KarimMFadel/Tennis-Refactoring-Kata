@@ -46,7 +46,7 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String checkMatchInProgress(int P1point, int P2point) {
-        if (P2point < WIN_THRESHOLD && P1point < WIN_THRESHOLD && P1point != P2point) {
+        if (P2point < WIN_THRESHOLD && P1point < WIN_THRESHOLD) {
             return TennisScore.fromValue(P1point) + "-" + TennisScore.fromValue(P2point);
         }
         return null;
