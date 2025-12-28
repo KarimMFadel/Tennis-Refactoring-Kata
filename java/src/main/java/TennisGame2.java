@@ -25,11 +25,13 @@ public class TennisGame2 implements TennisGame
 
     public String getScore(){
         AtomicReference<String> score = new AtomicReference<>("");
+
         checkTieInMatch(score);
-
         checkMatchInProgress(score);
+        if(!checkWinnerInMatch(score)) {
+            checkAdvantageInMatch(score);
+        }
 
-        checkWinnerInMatch(score);
         return score.toString();
     }
 
@@ -64,24 +66,27 @@ public class TennisGame2 implements TennisGame
         }
     }
 
-    private void checkWinnerInMatch(AtomicReference<String> score) {
+    private boolean checkWinnerInMatch(AtomicReference<String> score) {
         if (P1point>=4 && P2point>=0 && (P1point-P2point)>=2)
         {
             score.set("Win for player1");
-            return;
+            return true;
         }
-        if (P2point>=4 && P1point>=0 && (P2point-P1point)>=2)
+        else if (P2point>=4 && P1point>=0 && (P2point-P1point)>=2)
         {
             score.set("Win for player2");
-            return;
+            return true;
         }
+        return false;
+    }
 
+    private void checkAdvantageInMatch(AtomicReference<String> score) {
         if (P1point > P2point && P2point >= 3)
         {
             score.set("Advantage player1");
         }
 
-        if (P2point > P1point && P1point >= 3)
+        else if (P2point > P1point && P1point >= 3)
         {
             score.set("Advantage player2");
         }
