@@ -1,135 +1,66 @@
+import models.Player;
+import models.TennisScore;
 
-public class TennisGame2 implements TennisGame
-{
-    public int P1point = 0;
-    public int P2point = 0;
-    
-    public String P1res = "";
-    public String P2res = "";
-    private String player1Name;
-    private String player2Name;
+import java.util.Objects;
+
+public class TennisGame2 implements TennisGame {
+    private static final int DEUCE_THRESHOLD = 3;
+    private static final int WIN_THRESHOLD = 4;
+    private static final String DEUCE = "Deuce";
+    private static final String WIN_PREFIX = "Win for ";
+    private static final String ADVANTAGE_PREFIX = "Advantage ";
+    private final Player player1;
+    private final Player player2;
 
     public TennisGame2(String player1Name, String player2Name) {
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
+        this.player1 = new Player(player1Name);
+        this.player2 = new Player(player2Name);
     }
 
-    public String getScore(){
-        String score = "";
-        if (P1point == P2point && P1point < 4)
-        {
-            if (P1point==0)
-                score = "Love";
-            if (P1point==1)
-                score = "Fifteen";
-            if (P1point==2)
-                score = "Thirty";
-            score += "-All";
-        }
-        if (P1point==P2point && P1point>=3)
-            score = "Deuce";
-        
-        if (P1point > 0 && P2point==0)
-        {
-            if (P1point==1)
-                P1res = "Fifteen";
-            if (P1point==2)
-                P1res = "Thirty";
-            if (P1point==3)
-                P1res = "Forty";
-            
-            P2res = "Love";
-            score = P1res + "-" + P2res;
-        }
-        if (P2point > 0 && P1point==0)
-        {
-            if (P2point==1)
-                P2res = "Fifteen";
-            if (P2point==2)
-                P2res = "Thirty";
-            if (P2point==3)
-                P2res = "Forty";
-            
-            P1res = "Love";
-            score = P1res + "-" + P2res;
-        }
-        
-        if (P1point>P2point && P1point < 4)
-        {
-            if (P1point==2)
-                P1res="Thirty";
-            if (P1point==3)
-                P1res="Forty";
-            if (P2point==1)
-                P2res="Fifteen";
-            if (P2point==2)
-                P2res="Thirty";
-            score = P1res + "-" + P2res;
-        }
-        if (P2point>P1point && P2point < 4)
-        {
-            if (P2point==2)
-                P2res="Thirty";
-            if (P2point==3)
-                P2res="Forty";
-            if (P1point==1)
-                P1res="Fifteen";
-            if (P1point==2)
-                P1res="Thirty";
-            score = P1res + "-" + P2res;
-        }
-        
-        if (P1point > P2point && P2point >= 3)
-        {
-            score = "Advantage player1";
-        }
-        
-        if (P2point > P1point && P1point >= 3)
-        {
-            score = "Advantage player2";
-        }
-        
-        if (P1point>=4 && P2point>=0 && (P1point-P2point)>=2)
-        {
-            score = "Win for player1";
-        }
-        if (P2point>=4 && P1point>=0 && (P2point-P1point)>=2)
-        {
-            score = "Win for player2";
-        }
-        return score;
-    }
-    
-    public void SetP1Score(int number){
-        
-        for (int i = 0; i < number; i++)
-        {
-            P1Score();
-        }
-            
-    }
-    
-    public void SetP2Score(int number){
-        
-        for (int i = 0; i < number; i++)
-        {
-            P2Score();
-        }
-            
-    }
-    
-    public void P1Score(){
-        P1point++;
-    }
-    
-    public void P2Score(){
-        P2point++;
-    }
-
+    @Override
     public void wonPoint(String player) {
-        if (player == "player1")
-            P1Score();
-        else
-            P2Score();
+        if (Objects.equals(player, player1.getName())) {
+            player1.incrementScore();
+        } else {
+            player2.incrementScore();
+        }
+    }
+
+    @Override
+    public String getScore() {
+        int p1point = player1.getScore();
+        int p2point = player2.getScore();
+
+        if (p1point == p2point) {
+            return formatTieScore(p1point);
+        }
+        if (p2point < WIN_THRESHOLD && p1point < WIN_THRESHOLD) {
+            return formatRegularScore(p1point, p2point);
+        }
+        if (Math.abs(p1point - p2point) >= 2) {
+            return formatWinnerMessage(p1point, p2point);
+        }
+
+        return formatAdvantageMessage(p1point, p2point);
+    }
+
+    private String formatTieScore(int P1point) {
+        if (P1point >= DEUCE_THRESHOLD) {
+            return DEUCE;
+        }
+        return TennisScore.fromValue(P1point) + "-All";
+    }
+
+    private String formatRegularScore(int P1point, int P2point) {
+        return TennisScore.fromValue(P1point) + "-" + TennisScore.fromValue(P2point);
+    }
+
+    private String formatWinnerMessage(int P1point, int P2point) {
+        return (P1point - P2point) > 0 ? WIN_PREFIX + "player1" : WIN_PREFIX + "player2";
+    }
+
+    private String formatAdvantageMessage(int P1point, int P2point) {
+        return (P1point > P2point) ?
+                ADVANTAGE_PREFIX + "player1" : ADVANTAGE_PREFIX + "player2";
     }
 }
