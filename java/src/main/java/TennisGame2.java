@@ -32,12 +32,12 @@ public class TennisGame2 implements TennisGame {
             return checkTieInMatch(p1point);
         }
         if (p2point < WIN_THRESHOLD && p1point < WIN_THRESHOLD) {
-            return formatWinnerMessage(p1point, p2point);
+            return checkMatchInProgress(p1point, p2point);
         }
         if (Math.abs(p1point - p2point) >= 2)
-            return checkWinnerInMatch(p1point, p2point);
+            return formatWinnerMessage(p1point, p2point);
 
-        return checkAdvantageInMatch(p1point, p2point);
+        return formatAdvantageMessage(p1point, p2point);
     }
 
     private String checkTieInMatch(int P1point) {
@@ -46,15 +46,15 @@ public class TennisGame2 implements TennisGame {
         return TennisScore.fromValue(P1point) + "-All";
     }
 
-    private String formatWinnerMessage(int P1point, int P2point) {
+    private String checkMatchInProgress(int P1point, int P2point) {
         return TennisScore.fromValue(P1point) + "-" + TennisScore.fromValue(P2point);
     }
 
-    private String checkWinnerInMatch(int P1point, int P2point) {
+    private String formatWinnerMessage(int P1point, int P2point) {
         return (P1point - P2point) > 0? WIN_PREFIX + "player1" : WIN_PREFIX + "player2";
     }
 
-    private String checkAdvantageInMatch(int P1point, int P2point) {
+    private String formatAdvantageMessage(int P1point, int P2point) {
         return (P1point > P2point) ?
                 ADVANTAGE_PREFIX + "player1" : ADVANTAGE_PREFIX + "player2";
     }
