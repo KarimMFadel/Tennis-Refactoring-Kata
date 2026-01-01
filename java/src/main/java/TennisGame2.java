@@ -35,8 +35,9 @@ public class TennisGame2 implements TennisGame {
         if (p2point < WIN_THRESHOLD && p1point < WIN_THRESHOLD) {
             return formatRegularScore(p1point, p2point);
         }
-        if (Math.abs(p1point - p2point) >= 2)
+        if (Math.abs(p1point - p2point) >= 2) {
             return formatWinnerMessage(p1point, p2point);
+        }
 
         return formatAdvantageMessage(p1point, p2point);
     }
