@@ -7,8 +7,8 @@ public class TennisGame2 implements TennisGame {
     private static final int DEUCE_THRESHOLD = 3;
     private static final int WIN_THRESHOLD = 4;
     private static final String DEUCE = "Deuce";
-    private static final String WIN_PREFiX = "Win for ";
-    private static final String ADVANTAGE_PREFiX = "Advantage ";
+    private static final String WIN_PREFIX = "Win for ";
+    private static final String ADVANTAGE_PREFIX = "Advantage ";
     private final Player player1;
     private final Player player2;
 
@@ -51,11 +51,11 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String checkWinnerInMatch(int P1point, int P2point) {
-        return (P1point - P2point) > 0? WIN_PREFiX + "player1" : WIN_PREFiX + "player2";
+        return (P1point - P2point) > 0? WIN_PREFIX + "player1" : WIN_PREFIX + "player2";
     }
 
     private String checkAdvantageInMatch(int P1point, int P2point) {
         return (P1point > P2point) ?
-                ADVANTAGE_PREFiX + "player1" : ADVANTAGE_PREFiX + "player2";
+                ADVANTAGE_PREFIX + "player1" : ADVANTAGE_PREFIX + "player2";
     }
 }
