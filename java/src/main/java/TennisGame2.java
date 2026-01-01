@@ -17,6 +17,7 @@ public class TennisGame2 implements TennisGame {
         this.player2 = new Player(player2Name);
     }
 
+    @Override
     public void wonPoint(String player) {
         if (Objects.equals(player, player1.getName())) {
             player1.incrementScore();
@@ -25,6 +26,7 @@ public class TennisGame2 implements TennisGame {
         }
     }
 
+    @Override
     public String getScore() {
         int p1point = player1.getScore();
         int p2point = player2.getScore();
@@ -43,8 +45,9 @@ public class TennisGame2 implements TennisGame {
     }
 
     private String formatTieScore(int P1point) {
-        if (P1point >= DEUCE_THRESHOLD)
+        if (P1point >= DEUCE_THRESHOLD) {
             return DEUCE;
+        }
         return TennisScore.fromValue(P1point) + "-All";
     }
 
