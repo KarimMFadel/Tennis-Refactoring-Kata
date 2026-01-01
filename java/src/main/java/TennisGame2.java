@@ -25,19 +25,19 @@ public class TennisGame2 implements TennisGame {
     }
 
     public String getScore() {
-        int P1point = player1.getScore();
-        int P2point = player2.getScore();
+        int p1point = player1.getScore();
+        int p2point = player2.getScore();
 
-        if (P1point == P2point) {
-            return checkTieInMatch(P1point);
+        if (p1point == p2point) {
+            return checkTieInMatch(p1point);
         }
-        if (P2point < WIN_THRESHOLD && P1point < WIN_THRESHOLD) {
-            return checkMatchInProgress(P1point, P2point);
+        if (p2point < WIN_THRESHOLD && p1point < WIN_THRESHOLD) {
+            return checkMatchInProgress(p1point, p2point);
         }
-        if (Math.abs(P1point - P2point) >= 2)
-            return checkWinnerInMatch(P1point, P2point);
+        if (Math.abs(p1point - p2point) >= 2)
+            return checkWinnerInMatch(p1point, p2point);
 
-        return checkAdvantageInMatch(P1point, P2point);
+        return checkAdvantageInMatch(p1point, p2point);
     }
 
     private String checkTieInMatch(int P1point) {
