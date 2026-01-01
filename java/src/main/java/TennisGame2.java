@@ -32,7 +32,7 @@ public class TennisGame2 implements TennisGame {
             return checkTieInMatch(p1point);
         }
         if (p2point < WIN_THRESHOLD && p1point < WIN_THRESHOLD) {
-            return checkMatchInProgress(p1point, p2point);
+            return formatWinnerMessage(p1point, p2point);
         }
         if (Math.abs(p1point - p2point) >= 2)
             return checkWinnerInMatch(p1point, p2point);
@@ -46,7 +46,7 @@ public class TennisGame2 implements TennisGame {
         return TennisScore.fromValue(P1point) + "-All";
     }
 
-    private String checkMatchInProgress(int P1point, int P2point) {
+    private String formatWinnerMessage(int P1point, int P2point) {
         return TennisScore.fromValue(P1point) + "-" + TennisScore.fromValue(P2point);
     }
 
